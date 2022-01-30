@@ -1,6 +1,5 @@
 
 const container = document.getElementById('root')
-const error = document.getElementById('error');
 const root = document.getElementById('root')
 const searchWrapper = document.getElementById('searchWrapper');
 const sortedWrapper = document.getElementById('sorted')
@@ -27,12 +26,43 @@ class Tree {
 
 
     find(val) {
-        const node = this.root.search(val);
+        const { node, visited } = this.root.search(val, [this.root.value]);
         if (node) {
-            const n = document.getElementById(node.value);
-            if (n) n.classList.add('visited');
+            visited.forEach(v => {
+                const n = document.getElementById(v);
+                const line = n.querySelector('.line');
+                if (n) {
+                    if (val !== v) {
+                        n.classList.add('visited');
+                        if (line) {
+                            line.classList.add('visited')
+                        }
+                    } else {
+                        n.classList.add('target');
+                        if (line) {
+                            line.classList.add('target')
+                        }
+                    }
+                };
+            })
             setTimeout(() => {
-                n.classList.remove('visited')
+                visited.forEach(v => {
+                    const n = document.getElementById(v);
+                    const line = n.querySelector('.line');
+                    if (n) {
+                        if (v !== val) {
+                            n.classList.remove('visited')
+                            if (line) {
+                                line.classList.remove('visited')
+                            }
+                        } else {
+                            n.classList.remove('target');
+                            if (line) {
+                                line.classList.remove('target')
+                            }
+                        }
+                    };
+                })
             }, 3000)
         } else {
             console.log('Not a part of the binary tree');
@@ -73,15 +103,17 @@ class Node {
         }
     }
 
-    search(val) {
+    search(val, arr = []) {
         if (val === this.value) {
-            return this;
+            return { node: this, visited: arr };
         } else if (val < this.value && this.left !== null) {
-            return this.left.search(val)
+            arr.push(this.left.value)
+            return this.left.search(val, arr)
         } else if (val > this.value && this.right !== null) {
-            return this.right.search(val)
+            arr.push(this.right.value)
+            return this.right.search(val, arr)
         }
-        return null
+        return { node: null, visited: [] }
     }
 
     visit() {
@@ -157,10 +189,7 @@ function handleAddNode() {
     const rnInt = Math.floor(Math.random() * 30)
     const node = document.getElementById(rnInt);
     if (node) {
-        if (error.classList.contains('none')) error.classList.remove('none');
-        setTimeout(() => {
-            error.classList.add('none')
-        }, 3000)
+        handleAddNode()
     } else tree.addValue(rnInt)
 }
 

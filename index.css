@@ -42,6 +42,11 @@ body{
     background-color: green;
 }
 
+.node.target{
+    background-color: orange;
+}
+
+
 .search-wrapper{
     display: flex;
     flex-direction: column;
@@ -74,6 +79,13 @@ body{
     height: 2px;
     background-color: white;
 }
+
+.node.visited .helper .line{
+    background-color: green;
+}
+.node.target .helper .line{
+    background-color: orange;
+}
 @keyframes scale {
     0%{
         transform: scale(0);
@@ -98,10 +110,6 @@ button{
     cursor: pointer;
 }
 
-#error{
-    color: red;
-    padding-left: 10px;
-}
 .none{
     display: none;
 }
@@ -111,4 +119,6 @@ button{
     bottom: 0;
     display: flex;
     column-gap: 10px;
+    width: 100%;
+    justify-content: center;
 }
