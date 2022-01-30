@@ -127,22 +127,32 @@ function createNode(value, parentNode) {
         innerDiv.innerText = value;
         innerDiv.append(line);
         node.classList.add('animation')
-        console.log(parentNode)
         if (value < parentNode.value) {
-            node.style.left = x - 100 + 'px';
-            node.style.top = y + 50 + 'px';
-            line.style.width = x - (x - 62) + 'px';
-            line.style.transform = 'rotate(-29deg)';
-            line.style.top = '0';
-            line.style.left = '44px'
+            // const overlap = checkOverlap(`${x - 50}px`, `${y + 100}px`, parentNode.value)
+            // if (overlap) {
+            //     recalculateLeft(parentNode.value, node, { x: x - 50, y: y + 100 }, line)
+            // } else {
+                node.style.left = x - 50 + 'px';
+                node.style.top = y + 100 + 'px';
+                line.style.width = 65 + 'px';
+                line.style.transform = 'rotate(-64deg)';
+                line.style.top = '-27px';
+                line.style.left = '17px'
+            // }
 
         } else {
-            node.style.left = x + 100 + 'px';
-            node.style.top = y + 50 + 'px';
-            line.style.width = x - (x - 62) + 'px';
-            line.style.transform = 'rotate(29deg)';
-            line.style.top = '0';
-            line.style.right = '44px'
+            const overlap = checkOverlap(`${x + 50}px`, `${y + 100}px`, parentNode.value)
+            // if (overlap) {
+            //     recalculateLeft(parentNode.value, node, { x: x + 50, y: y + 100 }, line, "+")
+            // } else {
+                node.style.left = x + 50 + 'px';
+                node.style.top = y + 100 + 'px';
+                line.style.width = 63 + 'px';
+                line.style.transform = 'rotate(63deg)';
+                line.style.top = "-26px";
+                line.style.right = '17px'
+            // }
+
         }
         node.append(innerDiv)
         node.setAttribute('id', value)
@@ -151,10 +161,34 @@ function createNode(value, parentNode) {
 }
 
 
+function checkOverlap(x, y) {
+    const nodes = root.querySelectorAll('.node');
+    if (nodes?.length) {
+        for (let n of Array.from(nodes)) {
+            if (n.style.left === x && n.style.top === y) {
+                return true;
+            }
+        }
+    }
+}
+
+
+
+function recalculateLeft(parentId, node, { x, y }, line, operator) {
+    const parentNode = document.getElementById(parentId);
+    if (parentNode) {
+        const currLeft = parentNode.style.left;
+        parentNode.style.left = operator === '+' ? currLeft + 100 + 'px' : currLeft - 100 + 'px';
+        node.style.left = operator === '+' ? x + 100 + 'px' : x - 100 + 'px';
+        node.style.top = `${y}px`
+    }
+}
+
+
 createTree();
 
 function handleAddNode() {
-    const rnInt = Math.floor(Math.random() * 30)
+    const rnInt = Math.floor(Math.random() * 20)
     const node = document.getElementById(rnInt);
     if (node) {
         handleAddNode()
