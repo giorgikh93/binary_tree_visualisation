@@ -29,42 +29,7 @@ class Tree {
     find(val) {
         const { node, visited } = this.root.search(val, [this.root.value]);
         if (node) {
-            visited.forEach(v => {
-                const n = document.getElementById(v);
-                const line = n.querySelector('.line');
-                if (n) {
-                    if (val !== v) {
-                        n.classList.add('visited');
-                        if (line) {
-                            line.classList.add('visited')
-                        }
-                    } else {
-                        n.classList.add('target');
-                        if (line) {
-                            line.classList.add('target')
-                        }
-                    }
-                };
-            })
-            setTimeout(() => {
-                visited.forEach(v => {
-                    const n = document.getElementById(v);
-                    const line = n.querySelector('.line');
-                    if (n) {
-                        if (v !== val) {
-                            n.classList.remove('visited')
-                            if (line) {
-                                line.classList.remove('visited')
-                            }
-                        } else {
-                            n.classList.remove('target');
-                            if (line) {
-                                line.classList.remove('target')
-                            }
-                        }
-                    };
-                })
-            }, 3000)
+            highlightFullPathToNode(visited, val)
         } else {
             console.log('Not a part of the binary tree');
             const span = document.createElement('span');
@@ -225,3 +190,41 @@ function displaySorted() {
     }, 10000)
 }
 
+function highlightFullPathToNode(visited, val) {
+    visited.forEach(v => {
+        const n = document.getElementById(v);
+        const line = n.querySelector('.line');
+        if (n) {
+            if (val !== v) {
+                n.classList.add('visited');
+                if (line) {
+                    line.classList.add('visited')
+                }
+            } else {
+                n.classList.add('target');
+                if (line) {
+                    line.classList.add('target')
+                }
+            }
+        };
+    })
+    setTimeout(() => {
+        visited.forEach(v => {
+            const n = document.getElementById(v);
+            const line = n.querySelector('.line');
+            if (n) {
+                if (v !== val) {
+                    n.classList.remove('visited')
+                    if (line) {
+                        line.classList.remove('visited')
+                    }
+                } else {
+                    n.classList.remove('target');
+                    if (line) {
+                        line.classList.remove('target')
+                    }
+                }
+            };
+        })
+    }, 3000)
+}
