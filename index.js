@@ -1,7 +1,7 @@
 
 const container = document.getElementById('root')
 const error = document.getElementById('error');
-
+const root = document.getElementById('root')
 class Tree {
     constructor() {
         this.root = null;
@@ -115,7 +115,7 @@ function createNode(value, parentNode) {
             line.style.transform = 'rotate(-29deg)';
             line.style.top = '0';
             line.style.left = '44px'
-            
+
         } else {
             node.style.left = x + 100 + 'px';
             node.style.top = y + 50 + 'px';
@@ -131,7 +131,7 @@ function createNode(value, parentNode) {
 }
 
 
-console.log(createTree())
+createTree();
 
 function handleAddNode() {
     const rnInt = Math.floor(Math.random() * 30)
@@ -142,5 +142,4 @@ function handleAddNode() {
             error.classList.add('none')
         }, 3000)
     } else tree.addValue(rnInt)
-    console.log(tree)
 }
