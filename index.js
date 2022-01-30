@@ -128,6 +128,8 @@ function createNode(value, parentNode) {
         innerDiv.append(line);
         node.classList.add('animation')
         if (value < parentNode.value) {
+            const overlap = checkOverlap( `${x - 100}px`, `${y+50}px`)
+            console.log(overlap)
             node.style.left = x - 100 + 'px';
             node.style.top = y + 50 + 'px';
             line.style.width = x - (x - 62) + 'px';
@@ -136,6 +138,8 @@ function createNode(value, parentNode) {
             line.style.left = '44px'
 
         } else {
+            const overlap = checkOverlap( `${x + 100}px`, `${y+50}px`)
+            console.log(overlap)
             node.style.left = x + 100 + 'px';
             node.style.top = y + 50 + 'px';
             line.style.width = x - (x - 62) + 'px';
@@ -147,6 +151,17 @@ function createNode(value, parentNode) {
         node.setAttribute('id', value)
     }
     return node;
+}
+function checkOverlap(x, y) {
+    const nodes = root.querySelectorAll('.node');
+    if (nodes?.length) {
+        for (let n of Array.from(nodes)) {
+            if (n.style.left === x && n.style.top === y) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 
