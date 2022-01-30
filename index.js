@@ -2,7 +2,8 @@
 const container = document.getElementById('root')
 const root = document.getElementById('root')
 const searchWrapper = document.getElementById('searchWrapper');
-const sortedWrapper = document.getElementById('sorted')
+const sortedWrapper = document.getElementById('sorted');
+
 class Tree {
     constructor() {
         this.root = null;
@@ -140,7 +141,8 @@ function createSorted(value) {
     const node = document.createElement('div');
     node.setAttribute('class', 'sortedNode');
     node.innerText = value;
-    sortedWrapper.append(node)
+    sortedWrapper.append(node);
+
 }
 
 function createNode(value, parentNode) {
@@ -160,6 +162,7 @@ function createNode(value, parentNode) {
         innerDiv.innerText = value;
         innerDiv.append(line);
         node.classList.add('animation')
+        console.log(parentNode)
         if (value < parentNode.value) {
             node.style.left = x - 100 + 'px';
             node.style.top = y + 50 + 'px';
@@ -195,18 +198,30 @@ function handleAddNode() {
 
 
 
+let disabled = false;
 
 function searchForNode() {
-    const val = search.value;
-    if (val) {
-        tree.find(+val);
-        search.value = ""
+    if (!disabled) {
+        const val = search.value;
+        if (val) {
+            tree.find(+val);
+            search.value = ""
+            search.disabled = true;
+            disabled = true;
+        }
     }
+    setTimeout(() => {
+        disabled = false;
+        search.disabled = false;
+    }, 3000)
 }
 
 
 function displaySorted() {
     sortedWrapper.innerHTML = ""
     tree.visitEvery()
+    setTimeout(() => {
+        sortedWrapper.innerHTML = ''
+    }, 10000)
 }
 

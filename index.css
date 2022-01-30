@@ -51,6 +51,9 @@ body{
     display: flex;
     flex-direction: column;
     max-width: 200px;
+    border: 1px solid #FFF;
+    padding:5px;
+    border-radius: 4px;
 }
 .search-wrapper span{
     margin: 5px;
