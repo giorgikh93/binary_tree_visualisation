@@ -3,7 +3,7 @@ const container = document.getElementById('root')
 const root = document.getElementById('root')
 const searchWrapper = document.getElementById('searchWrapper');
 const sortedWrapper = document.getElementById('sorted');
-let binaryTree =[]
+let binaryTree = []
 class Tree {
     constructor() {
         this.root = null;
@@ -109,7 +109,11 @@ function createSorted(value) {
     sortedWrapper.append(node);
 
 }
-
+const WIDTH = 62;
+const LINE_LEFT = 44;
+const DEGREE = 29;
+const NODE_LEFT = 100;
+const NODE_TOP = 50;
 function createNode(value, parentNode) {
     const node = document.createElement('div');
     node.setAttribute('class', 'node');
@@ -128,24 +132,24 @@ function createNode(value, parentNode) {
         innerDiv.append(line);
         node.classList.add('animation')
         if (value < parentNode.value) {
-            const overlap = checkOverlap( `${x - 100}px`, `${y+50}px`)
+            const overlap = checkOverlap(`${x - NODE_LEFT}px`, `${y + NODE_TOP}px`)
             console.log(overlap)
-            node.style.left = x - 100 + 'px';
-            node.style.top = y + 50 + 'px';
-            line.style.width = x - (x - 62) + 'px';
-            line.style.transform = 'rotate(-29deg)';
+            node.style.left = x - NODE_LEFT + 'px';
+            node.style.top = y + NODE_TOP + 'px';
+            line.style.width = WIDTH + 'px';
+            line.style.transform = `rotate(-${DEGREE}deg)`;
             line.style.top = '0';
-            line.style.left = '44px'
+            line.style.left = `${LINE_LEFT}px`
 
         } else {
-            const overlap = checkOverlap( `${x + 100}px`, `${y+50}px`)
+            const overlap = checkOverlap(`${x + NODE_LEFT}px`, `${y + NODE_TOP}px`)
             console.log(overlap)
-            node.style.left = x + 100 + 'px';
-            node.style.top = y + 50 + 'px';
-            line.style.width = x - (x - 62) + 'px';
-            line.style.transform = 'rotate(29deg)';
+            node.style.left = x + NODE_LEFT + 'px';
+            node.style.top = y + NODE_TOP + 'px';
+            line.style.width = WIDTH + 'px';
+            line.style.transform = `rotate(${DEGREE}deg)`;
             line.style.top = '0';
-            line.style.right = '44px'
+            line.style.right = `${LINE_LEFT}px`
         }
         node.append(innerDiv)
         node.setAttribute('id', value)
