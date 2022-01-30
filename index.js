@@ -3,7 +3,7 @@ const container = document.getElementById('root')
 const root = document.getElementById('root')
 const searchWrapper = document.getElementById('searchWrapper');
 const sortedWrapper = document.getElementById('sorted');
-
+let binaryTree =[]
 class Tree {
     constructor() {
         this.root = null;
@@ -127,7 +127,6 @@ function createNode(value, parentNode) {
         innerDiv.innerText = value;
         innerDiv.append(line);
         node.classList.add('animation')
-        console.log(parentNode)
         if (value < parentNode.value) {
             node.style.left = x - 100 + 'px';
             node.style.top = y + 50 + 'px';
@@ -152,13 +151,18 @@ function createNode(value, parentNode) {
 
 
 createTree();
-
 function handleAddNode() {
-    const rnInt = Math.floor(Math.random() * 30)
-    const node = document.getElementById(rnInt);
-    if (node) {
-        handleAddNode()
-    } else tree.addValue(rnInt)
+    // tmp solution for Max call stack size exceed 
+    if (binaryTree.length < 20) {
+        const rnInt = Math.floor(Math.random() * 20) + 1
+        const node = document.getElementById(rnInt);
+        if (node) {
+            handleAddNode()
+        } else {
+            binaryTree.push(rnInt)
+            tree.addValue(rnInt)
+        }
+    }
 }
 
 
