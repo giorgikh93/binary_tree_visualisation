@@ -2,6 +2,8 @@
 const container = document.getElementById('root')
 const error = document.getElementById('error');
 const root = document.getElementById('root')
+const searchWrapper = document.getElementById('searchWrapper');
+const sortedWrapper = document.getElementById('sorted')
 class Tree {
     constructor() {
         this.root = null;
@@ -19,17 +21,28 @@ class Tree {
     }
 
 
-    traverse() {
+    visitEvery() {
         this.root.visit()
     }
 
 
     find(val) {
-        const founded = this.root.search(val);
-        if (founded) {
-            console.log(founded)
+        const node = this.root.search(val);
+        if (node) {
+            const n = document.getElementById(node.value);
+            if (n) n.classList.add('visited');
+            setTimeout(() => {
+                n.classList.remove('visited')
+            }, 3000)
         } else {
-            console.log('Not a part of the binary tree')
+            console.log('Not a part of the binary tree');
+            const span = document.createElement('span');
+            span.innerText = 'Not a part of the binary tree!';
+            searchWrapper.append(span);
+            setTimeout(() => {
+                span.remove()
+            }, 3000)
+
         }
     }
 }
@@ -76,6 +89,7 @@ class Node {
             this.left.visit()
         }
         console.log(this.value)
+        createSorted(this.value)
         if (this.right !== null) {
             this.right.visit()
         }
@@ -90,7 +104,12 @@ function createTree() {
     handleAddNode()
 }
 
-
+function createSorted(value) {
+    const node = document.createElement('div');
+    node.setAttribute('class', 'sortedNode');
+    node.innerText = value;
+    sortedWrapper.append(node)
+}
 
 function createNode(value, parentNode) {
     const node = document.createElement('div');
@@ -108,6 +127,7 @@ function createNode(value, parentNode) {
         line.setAttribute('class', 'line')
         innerDiv.innerText = value;
         innerDiv.append(line);
+        node.classList.add('animation')
         if (value < parentNode.value) {
             node.style.left = x - 100 + 'px';
             node.style.top = y + 50 + 'px';
@@ -143,3 +163,21 @@ function handleAddNode() {
         }, 3000)
     } else tree.addValue(rnInt)
 }
+
+
+
+
+function searchForNode() {
+    const val = search.value;
+    if (val) {
+        tree.find(+val);
+        search.value = ""
+    }
+}
+
+
+function displaySorted() {
+    sortedWrapper.innerHTML = ""
+    tree.visitEvery()
+}
+

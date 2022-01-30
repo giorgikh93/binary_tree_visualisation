@@ -5,6 +5,7 @@
 }
 body{
     background-color: #38404b;
+    height: 100vh;
 }
 
 #root{
@@ -22,9 +23,44 @@ body{
     color: white;
     font-size: 18px;
     position:absolute;
+  
+}
+.sortedNode{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white; 
+}
+.node.animation{
     animation: scale .3s;
 }
+.node.visited{
+    background-color: green;
+}
 
+.search-wrapper{
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+}
+.search-wrapper span{
+    margin: 5px;
+    color: white;
+    font-size: 16px;
+}
+.search-wrapper input{
+    padding: 5px;
+    margin-left: 5px;
+    border-radius: 4px;
+    outline: none;
+}
+.search-wrapper button{
+    width: 100px;
+}
 .node .helper{
     position: relative;
     width: 100%;
@@ -68,4 +104,11 @@ button{
 }
 .none{
     display: none;
+}
+
+#sorted{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    column-gap: 10px;
 }
