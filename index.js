@@ -4,6 +4,8 @@ const root = document.getElementById('root')
 const searchWrapper = document.getElementById('searchWrapper');
 const sortedWrapper = document.getElementById('sorted');
 
+
+const binaryTree = []
 class Tree {
     constructor() {
         this.root = null;
@@ -139,9 +141,8 @@ function createNode(value, parentNode) {
                 line.style.top = '-27px';
                 line.style.left = '17px'
             // }
-
         } else {
-            const overlap = checkOverlap(`${x + 50}px`, `${y + 100}px`, parentNode.value)
+            // const overlap = checkOverlap(`${x + 50}px`, `${y + 100}px`, parentNode.value)
             // if (overlap) {
             //     recalculateLeft(parentNode.value, node, { x: x + 50, y: y + 100 }, line, "+")
             // } else {
@@ -180,7 +181,8 @@ function recalculateLeft(parentId, node, { x, y }, line, operator) {
         const currLeft = parentNode.style.left;
         parentNode.style.left = operator === '+' ? currLeft + 100 + 'px' : currLeft - 100 + 'px';
         node.style.left = operator === '+' ? x + 100 + 'px' : x - 100 + 'px';
-        node.style.top = `${y}px`
+        line.style.width = (63 * 2) + 'px'
+        node.style.top = `${y + 100}px`
     }
 }
 
@@ -188,11 +190,17 @@ function recalculateLeft(parentId, node, { x, y }, line, operator) {
 createTree();
 
 function handleAddNode() {
-    const rnInt = Math.floor(Math.random() * 20)
-    const node = document.getElementById(rnInt);
-    if (node) {
-        handleAddNode()
-    } else tree.addValue(rnInt)
+    // tmp solution for Max call stack size exceed 
+    if (binaryTree.length < 20) {
+        const rnInt = Math.floor(Math.random() * 20) + 1
+        const node = document.getElementById(rnInt);
+        if (node) {
+            handleAddNode()
+        } else {
+            binaryTree.push(rnInt)
+            tree.addValue(rnInt)
+        }
+    }
 }
 
 
