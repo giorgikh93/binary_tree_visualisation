@@ -154,6 +154,7 @@ function createNode(value, parentNode) {
                 line.style.right = '17px'
             // }
 
+            
         }
         node.append(innerDiv)
         node.setAttribute('id', value)
